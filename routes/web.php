@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route; // Add this line to import the Route class
+use App\Post; // Add this line to import the Post class
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,3 +34,29 @@ Route::resource('posts', 'PostsController');
 Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index');
+
+Route::get('/read',function(){  
+    $posts=Post::all();  
+    foreach($posts as $post)  
+    {  
+      echo $post->body;  
+    //   echo ?<br>?;  
+    }  
+    });
+    Route::get('/find',function(){  
+        $posts=Post::where('id',1)->first();  
+        return $posts;  
+        });   
+        
+        Route::get('/insert',function(){  
+            $post=new Post;  
+            $post->title='Nishka';  
+            $post->body='QA Analyst';  
+            $post->save();  
+            });  
+            Route::get('/basicupdate',function(){  
+                $post=Post::find(1);  
+                $post->title='Haseena';  
+                $post->body='Graphic Designer';  
+                $post->save();  
+                });  
