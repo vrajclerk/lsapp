@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route; // Add this line to import the Route class
 use App\Post; // Add this line to import the Post class
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,12 @@ Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index');
 
+Route::get('/user',function()  
+{  
+  return User::find(1)->post;  
+}  
+);  
+
 Route::get('/read',function(){  
     $posts=Post::all();  
     foreach($posts as $post)  
@@ -60,3 +67,24 @@ Route::get('/read',function(){
                 $post->body='Graphic Designer';  
                 $post->save();  
                 });  
+
+                Route::get('/create',function(){  
+                    Post::create(['title'=>'Vraj','body'=>'Technical Content Writer','user_id'=>2]);  
+                    });  
+
+                    Route::get('/update',function(){  
+                        Post::where('id',1)->update(['title'=>'Charu','body'=>'technical Content Writer']);  
+                        });  
+
+                        Route::get('/delete',function(){  
+                            $post=Post::find(1);  
+                            $post->delete();  
+                            });  
+
+                            Route::get('/destroy',function(){  
+                                Post::destroy([3,4]);  
+                                });  
+
+                                Route::get('/delete1',function(){  
+                                    Post::where('id',5)->delete();  
+                                    });  
